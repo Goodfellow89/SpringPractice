@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My book shelf</title>
+    <style>
+        #root_container {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #books {
+            width: 50%;
+            border-collapse: collapse;
+        }
+
+        table {
+            margin: 25px;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        th, td {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .book_img {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="root_container">
+    <form method="post" th:action="@{/books/save}" th:object="${book}">
+        <img class="book_img" th:src="@{/images/Open_book_nae_02.svg.png}">
+        <br>
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="author" th:field="*{author}">
+                </td>
+                <td>
+                    <input type="text" placeholder="book_title" th:field="*{title}">
+                </td>
+                <td>
+                    <input type="text" placeholder="size (pages)" th:field="*{size}">
+                </td>
+                <td>
+                    <input type="submit" value="save">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <form method="post" th:action="@{/books/remove}">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="id number" th:name="bookIdToRemove">
+                </td>
+                <td>
+                    <input type="submit" value="remove by id">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <form action="#" method="post" >
+        <table>
+            <tr>
+                <td>
+                    <input type="text" placeholder="author, title or size" th:name="queryRegex">
+                </td>
+                <td>
+                    <input type="submit" value="remove by author" th:formaction="@{/books/removeByAuthor}">
+                </td>
+                <td>
+                    <input type="submit" value="remove by title" th:formaction="@{/books/removeByTitle}">
+                </td>
+                <td>
+                    <input type="submit" value="remove by size" th:formaction="@{/books/removeBySize}">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <table id="books">
+        <tr>
+            <th>id</th>
+            <th>author</th>
+            <th>title</th>
+            <th>size</th>
+        </tr>
+        <tr th:each="book : ${bookList}">
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.size}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
