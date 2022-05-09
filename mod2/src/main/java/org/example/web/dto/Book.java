@@ -1,11 +1,19 @@
 package org.example.web.dto;
 
+import com.sun.istack.internal.Nullable;
+
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 public class Book {
     private Integer id;
+
+    @Pattern(regexp = "([A-Za-z .'()]+)?")
     private String author;
+
     private String title;
+
     @Digits(integer = 4, fraction = 0)
     private Integer size;
 

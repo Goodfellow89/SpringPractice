@@ -26,11 +26,11 @@ public class IdProvider implements InitializingBean, DisposableBean, BeanPostPro
         logger.info("provider DESTROY");
     }
 
-    public void defaultInit(){
+    public void defaultInit() {
         logger.info("default INIT in provider");
     }
 
-    public void defaultDestroy(){
+    public void defaultDestroy() {
         logger.info("default DESTROY in provider");
     }
 
@@ -57,12 +57,12 @@ public class IdProvider implements InitializingBean, DisposableBean, BeanPostPro
     }
 
     @PostConstruct
-    public void postConstructIdProvider(){
+    public void postConstructIdProvider() {
         logger.info("PostConstruct annotated method called");
     }
 
     @PreDestroy
-    public void preDestroyIdProvider(){
+    public void preDestroyIdProvider() {
         logger.info("PreDestroy annotated method called");
     }
 }

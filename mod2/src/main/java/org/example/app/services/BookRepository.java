@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class BookRepository implements ProjectRepository<Book>, ApplicationContextAware {
+public class BookRepository<G> implements ProjectRepository<Book, G>, ApplicationContextAware {
 
     private final Logger logger = Logger.getLogger(BookRepository.class);
     //private final List<Book> repo = new ArrayList<>();
@@ -29,8 +29,8 @@ public class BookRepository implements ProjectRepository<Book>, ApplicationConte
     }
 
     @Override
-    public List<Book> retreiveAll() {
-        List<Book> books = jdbcTemplate.query("SELECT * FROM books", (ResultSet rs,int rowNum) -> {
+    public List<Book> retrieveAll() {
+        List<Book> books = jdbcTemplate.query("SELECT * FROM books", (ResultSet rs, int rowNum) -> {
             Book book = new Book();
             book.setId(rs.getInt("id"));
             book.setAuthor(rs.getString("author"));
@@ -44,20 +44,20 @@ public class BookRepository implements ProjectRepository<Book>, ApplicationConte
     @Override
     public void store(Book book) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("author",book.getAuthor());
-        parameterSource.addValue("title",book.getTitle());
-        parameterSource.addValue("size",book.getSize());
-        jdbcTemplate.update("INSERT INTO books(author,title,size) VALUES(:author, :title, :size)",parameterSource);
+        parameterSource.addValue("author", book.getAuthor());
+        parameterSource.addValue("title", book.getTitle());
+        parameterSource.addValue("size", book.getSize());
+        jdbcTemplate.update("INSERT INTO books(author,title,size) VALUES(:author, :title, :size)", parameterSource);
         logger.info("store new book: " + book);
     }
 
     @Override
-    public boolean removeItemById(Integer bookIdToRemove) {
+    public boolean removeItem(String paramName, G param) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue("id",bookIdToRemove);
-        jdbcTemplate.update("DELETE FROM books WHERE id = :id",parameterSource);
+        parameterSource.addValue(paramName, param);
+        int d = jdbcTemplate.update("DELETE FROM books WHERE " + paramName + " = :" + paramName, parameterSource);
         logger.info("remove book completed");
-        return true;
+        return d > 0;
     }
 
     @Override
@@ -65,11 +65,11 @@ public class BookRepository implements ProjectRepository<Book>, ApplicationConte
         this.context = applicationContext;
     }
 
-    public void defaultInit(){
+    public void defaultInit() {
         logger.info("default INIT in book repo bean");
     }
 
-    public void defaultDestroy(){
+    public void defaultDestroy() {
         logger.info("default DESTROY in book repo bean");
     }
 }

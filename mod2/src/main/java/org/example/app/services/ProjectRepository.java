@@ -2,10 +2,10 @@ package org.example.app.services;
 
 import java.util.List;
 
-public interface ProjectRepository<T> {
-    List<T> retreiveAll();
+public interface ProjectRepository<T,G> {
+    List<T> retrieveAll();
 
     void store(T book);
 
-    boolean removeItemById(Integer bookIdToRemove);
+    boolean removeItem(String paramName, G param);
 }
