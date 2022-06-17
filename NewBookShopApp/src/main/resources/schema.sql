@@ -15,3 +15,17 @@ create table authors
     first_name VARCHAR(50),
     last_name  VARCHAR(50)
 );
+
+create table genres
+(
+    id INT,
+    parentId INT,
+    genre VARCHAR(50)
+);
+
+create table book2user_type
+(
+    id INT,
+    code VARCHAR(50),
+    name VARCHAR(50)
+);
