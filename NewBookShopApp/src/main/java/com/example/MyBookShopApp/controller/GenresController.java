@@ -1,6 +1,5 @@
 package com.example.MyBookShopApp.controller;
 
-import com.example.MyBookShopApp.data.dto.Genre;
 import com.example.MyBookShopApp.data.service.GenresService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +19,10 @@ public class GenresController {
         this.genresService = genresService;
     }
 
-    @ModelAttribute("genresMap")
-    public Map<String, Map<String, List<Genre>>> getGenres() {
-        return genresService.getGenres();
-    }
+//    @ModelAttribute("genresMap")
+//    public Map<String, Map<String, List<Genre>>> getGenres() {
+//        return genresService.getGenres();
+//    }
 
     @GetMapping("/genres")
     public String genresPage() {

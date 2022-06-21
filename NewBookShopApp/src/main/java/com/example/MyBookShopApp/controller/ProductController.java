@@ -1,6 +1,6 @@
 package com.example.MyBookShopApp.controller;
 
-import com.example.MyBookShopApp.data.dto.Book;
+import com.example.MyBookShopApp.data.dto.book.BookEntity;
 import com.example.MyBookShopApp.data.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class ProductController {
     }
 
     @ModelAttribute("postponed")
-    public List<Book> postponed() {
+    public List<BookEntity> postponed() {
         return bookService.getBooksData();
     }
 
@@ -29,18 +29,18 @@ public class ProductController {
         return "postponed";
     }
 
-    @ModelAttribute("addedToCart")
-    public List<Book> addedToCart() {
-        return bookService.getBooksInCart();
-    }
-    @ModelAttribute("totalCost")
-    public Double totalCost() {
-        return bookService.totalCost();
-    }
-    @ModelAttribute("totalOldCost")
-    public Double totalOldCost() {
-        return bookService.totalOldCost();
-    }
+//    @ModelAttribute("addedToCart")
+////    public List<BookEntity> addedToCart() {
+////        return bookService.getBooksInCart();
+////    }
+////    @ModelAttribute("totalCost")
+////    public Double totalCost() {
+////        return bookService.totalCost();
+////    }
+////    @ModelAttribute("totalOldCost")
+////    public Double totalOldCost() {
+////        return bookService.totalOldCost();
+////    }
 
     @GetMapping("/cart")
     public String cartPage() {
